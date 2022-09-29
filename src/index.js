@@ -32,19 +32,36 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {date: new Date()};
+  }
+  
+  componentDidMount() {
+    this.timerID = setInterval(() => this.tick(),1000)
+    }
+  componentWillUnmount() {  
+    clearInterval(this.timerID);
+    }
+  
+  tick(){
+    this.setState({
+      date: new Date()
+    });
+  }
+  render() {
+    return (
+      <div>
+        <h1>Hello, world!</h1>
+        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+      </div>
+    );
+  }
+}
 
-
-
-function tick() {
-  const element3 = (
-    <div>
-      <h1>Bonjour, monde !</h1>
-      <h2>Il est {new Date().toLocaleTimeString()}.</h2>
-    </div>
-  );
-  ReactDOM.render(element3, document.getElementById('root3'));}
-
-setInterval(tick, 1000);
+const root = ReactDOM.createRoot(document.getElementById('root3'));
+root.render(<Clock />);
 
 function Welcome(props){  
   return <h1>Bonjour, {props.name}</h1>;
