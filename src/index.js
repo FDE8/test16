@@ -46,3 +46,13 @@ function tick() {
 
 setInterval(tick, 1000);
 
+function Welcome(props){  
+  return <h1>Bonjour, {props.name}</h1>;
+}
+
+const element4 = <Welcome name = 'Sara' />;
+
+ReactDOM.render(
+  element4,
+  document.getElementById('root4')
+);
