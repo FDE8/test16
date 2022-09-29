@@ -135,3 +135,154 @@ ReactDOM.render(
   />,
   document.getElementById('root6')
 );
+
+function Application() {
+  return (
+    <div>
+      <Clock /> 
+      <Clock />
+    </div>
+  );
+}
+
+ReactDOM.render(
+  <Application />,
+  document.getElementById('root7')
+);
+
+class Toggle extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {isToggleOn: true};
+
+    // Cette liaison est nécéssaire afin de permettre
+    // l'utilisation de `this` dans la fonction de rappel.
+    this.handleClick = this.handleClick.bind(this);  }
+
+  handleClick() {
+    this.setState(state => ({
+    isToggleOn: !state.isToggleOn    }));
+    }
+  render() {
+    return (
+      <button onClick={this.handleClick}>
+      {this.state.isToggleOn ? 'ON_F' : 'OFF_F'}
+      </button>
+    );
+  }
+}
+
+ReactDOM.render(
+  <Toggle />,
+  document.getElementById('root8')
+);
+
+function FUserGreeting(props) {
+  return <h1>Bienvenue !</h1>;
+}
+
+function FGuestGreeting(props) {
+  return <h1>Veuillez vous inscrire.</h1>;
+}
+
+function FGreeting(props) {
+  const isLoggedIn = props.isLoggedIn;
+  if (isLoggedIn) {
+    return <FUserGreeting />;
+    }
+    return <FGuestGreeting />;}
+ReactDOM.render(
+  // Essayez de changer ça vers isLoggedIn={true} :
+  <FGreeting isLoggedIn={true} />,
+  document.getElementById('root9')
+  );
+
+
+class LoginControl extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleLoginClick = this.handleLoginClick.bind(this);
+    this.handleLogoutClick = this.handleLogoutClick.bind(this);
+    this.state = {isLoggedIn: false};
+  }
+  
+  handleLoginClick() {
+    this.setState({isLoggedIn: true});
+  }
+
+  handleLogoutClick() {
+    this.setState({isLoggedIn: false});
+  }
+  
+  render() {
+    const isLoggedIn = this.state.isLoggedIn;
+    let button;
+    if (isLoggedIn) {
+      button = <LogoutButton onClick={this.handleLogoutClick} />;
+    } else {
+      button = <LoginButton onClick={this.handleLoginClick} />;
+    }
+    return (
+      <div>
+        <Greeting isLoggedIn={isLoggedIn} />
+          {button} 
+        </div>
+    );
+  }
+  }
+  function UserGreeting(props) {
+    return <h1>Welcome back!</h1>;
+  }
+  
+  function GuestGreeting(props) {
+    return <h1>Please sign up.</h1>;
+  }
+  
+  function Greeting(props) {
+    const isLoggedIn = props.isLoggedIn;
+    if (isLoggedIn) {
+      return <UserGreeting />;
+    }
+    return <GuestGreeting />;
+  }
+  
+  function LoginButton(props) {
+    return (
+      <button onClick={props.onClick}>
+        Login
+      </button>
+    );
+  }
+  
+  function LogoutButton(props) {
+    return (
+      <button onClick={props.onClick}>
+        Logout
+      </button>
+    );
+  }
+    
+  ReactDOM.render(
+    <LoginControl />,
+    document.getElementById('root10')
+  );
+
+function Mailbox(props) {
+  const unreadMessages = props.unreadMessages;
+  return (
+    <div>
+      <h1>Bonjour !</h1>
+      {unreadMessages.length > 0 && 
+             <h2>Vous avez {unreadMessages.length} message(s) non-lu(s). </h2> 
+      }
+      </div>
+  );
+}
+
+const messages = ['React', 'Re: React', 'Re:Re: React'];
+//const messages = ['msg1'];
+//const messages = [];
+ReactDOM.render(
+  <Mailbox unreadMessages={messages} />,
+  document.getElementById('root11')
+);
